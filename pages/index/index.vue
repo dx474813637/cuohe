@@ -40,7 +40,7 @@
 		</view>
 		
 		<view class="main u-p-30">
-			<image class="step3 banner-img u-m-b-30" src="https://wx.rawmex.cn/Public/memu/xxx.png" mode="widthFix"></image>
+			<image v-if="other.img" class="step3 banner-img u-m-b-30" :src="other.img" mode="widthFix"></image>
 		
 			<view class="card-list">
 				<view class="card-item u-m-b-20"
@@ -52,6 +52,7 @@
 						:name="item.name"
 						:icon="item.icon"
 						:pan="item.pan"
+						:moreTitlte="other.title"
 						@settingClick="handleSettingClick"
 					></panCard>
 				</view>
@@ -93,7 +94,7 @@
 					</view>
 					<view @click="handleSettingClick" class="item u-flex u-flex-items-center" :style="{color: themeConfig.followCard.subText}">
 						<i class="custom-icon custom-icon-shezhi1 u-font-28" ></i>
-						<text class="u-font-28 u-p-l-10">设置商品</text>
+						<text class="u-font-28 u-p-l-10">{{other.title}}</text>
 					</view>
 				</view> 
 				<view class="hq-main u-flex u-flex-wrap">
@@ -165,7 +166,12 @@
 				onlineControl: {
 					title: '首页'
 				},
-				attentionJSON: ''
+				attentionJSON: '',
+				other: {
+					img: '',
+					title: '',
+					title_url: ''
+				}
 			};
 		},
 		computed: {
@@ -241,6 +247,7 @@
 					this.hqList = res.list.quotation
 					this.gz_msg = res.gz_msg
 					this.attentionJSON = JSON.stringify(res.config)
+					this.other = res.other
 					 
 				}
 			},
@@ -257,9 +264,9 @@
 				let current 
 				if(pan == 's') current = 0
 				else if(pan == 'b') current = 1
-				else current = 2
+				else current = 2 
 				this.handleGoto({
-					url: '/pages/index/attention/attention', 
+					url: this.other.title_url, 
 					params: {
 						current: current,
 						list: encodeURIComponent(this.attentionJSON)

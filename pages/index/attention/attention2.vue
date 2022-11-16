@@ -1,74 +1,12 @@
 <template>
-	<view class="w">
-		<u-sticky>
-			<view class="tabs-w">
-				<u-tabs
-					:list="tabs_list"
-					:current="tabs_current"
-					lineHeight="0"
-					:activeStyle="activeTabsStyle"
-					:itemStyle="itemTabsStyle"
-					@change="handleTabsChange"
-				></u-tabs>
-			</view>
-		</u-sticky>
-		
-		<view class="u-p-20 ">
-			<view class="list u-p-20">
-				<view class="list-item u-p-12 u-flex u-flex-items-center"
-					v-for="(item, index) in tabs_list[tabs_current].list"
-					:key="item.id"
-				>
-					<view class="u-flex u-flex-items-center u-flex-between u-flex-1">
-						<view>
-							{{item.name}}
-						</view>
-						<view class="u-flex u-flex-items-center">
-							<view class="u-font-28 u-flex u-flex-items-center" :style="{color: '#df4d4d'}"
-								@click="handleRemoveFollow(item, index)"
-							>
-								<u-icon name="minus-circle-fill" color="#df4d4d" ></u-icon>
-								<text class="u-p-l-10">移除</text>
-							</view>
-							
-						</view>
-					</view>
-				</view>
-				
-			</view>
-		</view>
-		<view class="u-p-20" v-if="guanzhu.info">
-			<view class="list u-p-20">
+	<view class="w">  
+		<view class="u-p-20" >
+			<view class="list u-p-20" v-if="guanzhu.info">
 				<!-- <view class="title u-text-center u-m-b-30">{{guanzhu.title}}</view> -->
 				<official-account @bindload="bindload" @binderror="binderror"></official-account>
 				<u-parse :content="guanzhu.info"></u-parse>
 			</view>
-		</view>
-		<u-safe-bottom></u-safe-bottom>
-		<tabBar :customStyle="{
-			'boxShadow': '0 0 10rpx rgba(0,0,0,.1)'
-		}">
-			<view class=" u-flex u-flex-items-center u-flex-around u-p-20">
-				<view class="item u-m-r-10 u-flex-1" v-if="save_btn.show" @click="saveBtnEvent">
-					<u-button type="error" shape="circle" icon="checkbox-mark">{{save_btn.name}}</u-button>
-				</view>
-				<view class="item u-m-l-10 u-flex-1" @click="handleAdd">
-					<u-button type="primary" shape="circle" icon="plus-circle">新增关注</u-button>
-				</view>
-			</view> 
-		</tabBar>
-		<menusPopup 
-			:show="show" 
-			multiple
-			theme="white"
-			:isPPI="isPPI"
-			:mainkey="tabs_list[tabs_current].mainkey"
-			:minNum="minNum"
-			:maxNum="maxNum"
-			:selectedList="selectedList"
-			@close="show = false"
-			@confirm="menusConfirm"
-		></menusPopup>
+		</view> 
 	</view>
 </template>
 
@@ -113,17 +51,19 @@
 				],
 				indexList: [],
 				show: false,
-				guanzhu: {},
+				guanzhu: {
+					info: ''
+				},
 			};
 		},
 		onLoad(options) {
-			if(options.hasOwnProperty('current')) {
-				this.tabs_current = Number(options.current)
-			}
-			if(options.hasOwnProperty('list')) {
-				this.str2list(options.list)
-			}
-			// // uni.showLoading()
+			// if(options.hasOwnProperty('current')) {
+			// 	this.tabs_current = Number(options.current)
+			// }
+			// if(options.hasOwnProperty('list')) {
+			// 	this.str2list(options.list)
+			// }
+			// uni.showLoading()
 			this.getGuanzhu()
 		},
 		computed: {
@@ -201,8 +141,7 @@
 			async getGuanzhu() {
 				const res = await this.$api.guanzhu()
 				if(res.code == 1) {
-					this.guanzhu = res.list
-					
+					this.guanzhu = res.list 
 					this.save_btn.show = res.home
 					this.save_btn.name = res.home_button
 				}

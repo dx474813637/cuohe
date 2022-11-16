@@ -7,7 +7,7 @@
 			</view>
 			<view @click="handleClickSetting"  class="item u-flex u-flex-items-center" :style="{color: themeConfig.followCard.subText}">
 				<i class="custom-icon custom-icon-shezhi1 u-font-28" ></i>
-				<text class="u-font-28 u-p-l-10">设置推荐</text>
+				<text class="u-font-28 u-p-l-10">{{moreTitlte}}</text>
 			</view>
 		</view>
 		<view class="card-content" :style="{
@@ -130,6 +130,10 @@
 				type: String,
 				default: 's'
 			},
+			moreTitlte: {
+				type: String,
+				default: ''
+			}, 
 		},
 		data() {
 			return {
@@ -192,7 +196,8 @@
 				this.loading = true
 				const res = await this.$api[this.pan == 's'? 'getSell' : 'getBuy']({
 					params: {
-						standard: this.tabs[this.tabs_current].id
+						standard: this.tabs[this.tabs_current].id,
+						home: 2
 					}
 				})
 				this.loading = false
@@ -209,7 +214,7 @@
 					url: `/pages/my/broker/edit?pan=${this.pan}`
 				})
 			},
-			handleClickSetting() {
+			handleClickSetting() { 
 				this.$emit('settingClick', {pan: this.pan})
 			}
 		}

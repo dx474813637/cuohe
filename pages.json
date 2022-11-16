@@ -198,6 +198,15 @@
             }
             
         }
+        ,{
+            "path" : "pages/index/attention/attention2",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"subPackages": [{
 		"root": "pages/baojia",
