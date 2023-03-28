@@ -8,12 +8,12 @@
 			:fixed="false"
 		>
 			<view slot="left">
-				<view @click="handleGoto('/pages/my/money/index')" class="text-white u-flex u-flex-items-center">
+				<view @click="handleGoto('/pages/my/money/index_new')" class="text-white u-flex u-flex-items-center">
 					<u-icon
 						name="arrow-left"
 						color="#fff"
 					></u-icon>
-					<text class="u-p-l-20 ">资金中心</text>
+					<text class="u-p-l-20 ">资金平台</text>
 				</view>
 				
 			</view>
@@ -258,7 +258,7 @@
 		</u-popup>
 		<u-modal :show="codeInputShow" negativeTop="220" title="输入支付密码"  
 			showCancelButton
-			cancelText="返回资金中心"
+			cancelText="返回资金平台"
 			cancelColor="#999"
 			@cancel="handleBack"
 			:confirmText="`当前${configObj.label}订单详情`" 
@@ -301,7 +301,7 @@
 			@close="codeInputShow_code = false" -->
 		<u-modal :show="codeInputShow_code" negativeTop="220" title="短信验证码校验" 
 			showCancelButton
-			cancelText="返回资金中心"
+			cancelText="返回资金平台"
 			cancelColor="#999"
 			@cancel="handleBack"
 			:confirmText="`账户${configObj.label}列表`" 
@@ -662,7 +662,7 @@
 			},
 			handleBack() {
 				uni.redirectTo({
-					url: '/pages/my/money/index'
+					url: '/pages/my/money/index_new'
 				})
 			},
 			handleBackDetail() {
@@ -764,7 +764,7 @@
 										
 									} else if (res.cancel) {
 										uni.redirectTo({
-											url: '/pages/my/money/index'
+											url: '/pages/my/money/index_new'
 										})
 									}
 								}
@@ -814,7 +814,7 @@
 			},
 			handleBack() {
 				uni.redirectTo({
-					url: '/pages/my/money/index'
+					url: '/pages/my/money/index_new'
 				})
 			},
 			async handleSumbitCode() {
@@ -827,7 +827,7 @@
 					})
 					setTimeout(() => {
 						uni.redirectTo({
-							url: '/pages/my/money/index'
+							url: '/pages/my/money/index_new'
 						})
 					}, 1000)
 				}

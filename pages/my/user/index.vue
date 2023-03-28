@@ -56,9 +56,9 @@
 				</template>
 				
 			</view>
-			<view class="dingyue-wrap " v-if="dingyue.zt == '1'">
+			<!-- <view class="dingyue-wrap " v-if="dingyue.zt == '1'">
 				<u-button type="primary" plain shape="circle" @click="dingyueEvent" size="mini">{{dingyue.title}}</u-button>
-			</view>
+			</view> -->
 			
 		</view>
 		
@@ -284,7 +284,7 @@
 			}else {
 				this.myCompany()
 			} 
-			this.sendDingyue()
+			// this.sendDingyue()
 		},
 		methods: {
 			...mapMutations({
@@ -306,15 +306,15 @@
 				}
 				
 			},
-			async dingyueEvent() {
-				uni.showLoading()
-				const res = await this.$api.tmp_id_list();
-				if(res.code == 1) {
-					// this.tmp_id_list = res.list ;
-					this.subApi(res.list)
+			// async dingyueEvent() {
+			// 	uni.showLoading()
+			// 	const res = await this.$api.tmp_id_list();
+			// 	if(res.code == 1) {
+			// 		// this.tmp_id_list = res.list ;
+			// 		this.subApi(res.list)
 					
-				}
-			},
+			// 	}
+			// },
 			subApi(list) {
 				wx.requestSubscribeMessage({
 					tmplIds: list,

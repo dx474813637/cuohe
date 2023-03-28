@@ -418,7 +418,23 @@
 				"style": {
 					"navigationStyle": "custom",
 					"navigationBarTextStyle": "white",
-					"navigationBarTitleText": "资金中心",
+					"navigationBarTitleText": "资金平台",
+					"enablePullDownRefresh": false
+				}
+
+			},{
+				"path": "money/index_before",
+				"style": {
+					"navigationStyle": "custom",
+					"navigationBarTextStyle": "white", 
+					"enablePullDownRefresh": false
+				}
+
+			},{
+				"path": "money/index_new",
+				"style": {
+					"navigationStyle": "custom",
+					"navigationBarTextStyle": "white", 
 					"enablePullDownRefresh": false
 				}
 
@@ -527,6 +543,8 @@
 			}, {
 				"path": "money/card_add",
 				"style": {
+					"navigationStyle": "custom",
+					"navigationBarTextStyle": "white",
 					"navigationBarTitleText": "银行卡绑定",
 					"enablePullDownRefresh": false
 				}
@@ -796,7 +814,6 @@
 		}]
 	}],
 	"globalStyle": {
-		"navigationBarTitleText": "网盛原材料撮合系统",
 		"navigationBarTextStyle": "black",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"

@@ -53,7 +53,7 @@
 						:icon="item.icon"
 						:pan="item.pan"
 						:moreTitlte="other.title"
-						@settingClick="handleSettingClick"
+						@settingClick="dingyueEvent"
 					></panCard>
 				</view>
 			</view>
@@ -92,7 +92,7 @@
 						<i class="custom-icon u-font-40 custom-icon-shujukanban" :style="{color: themeConfig.followCard.iconText}"></i>
 						<text class="u-p-l-10" :style="{color: themeConfig.followCard.titleText}">今日行情</text>
 					</view>
-					<view @click="handleSettingClick" class="item u-flex u-flex-items-center" :style="{color: themeConfig.followCard.subText}">
+					<view @click="dingyueEvent" class="item u-flex u-flex-items-center" :style="{color: themeConfig.followCard.subText}">
 						<i class="custom-icon custom-icon-shezhi1 u-font-28" ></i>
 						<text class="u-font-28 u-p-l-10">{{other.title}}</text>
 					</view>
@@ -135,7 +135,7 @@
 </template>
 
 <script>
-	import {mapState, mapGetters, mapMutations} from 'vuex'
+	import {mapState, mapGetters, mapMutations, mapActions} from 'vuex'
 	import mixShareInfo from '@/config/mixShareInfo'
 	export default {
 		mixins: [mixShareInfo],
@@ -190,10 +190,14 @@
 			this.getHome()
 			this.getMarketCard()
 			this.getNotice()
+			this.sendDingyue()
 		},
 		methods: {
 			...mapMutations({
 				handleGoto: 'user/handleGoto'
+			}),
+			...mapActions({ 
+				sendDingyue: 'user/sendDingyue',
 			}),
 			handleNoticeIndex(index) {
 				this.handleGoto({
@@ -261,6 +265,7 @@
 				})
 			},
 			handleSettingClick({pan}) {
+				
 				let current 
 				if(pan == 's') current = 0
 				else if(pan == 'b') current = 1
@@ -272,7 +277,37 @@
 						list: encodeURIComponent(this.attentionJSON)
 					}
 				})
-			}
+			}, 
+			async dingyueEvent() {
+				uni.showLoading()
+				const res = await this.$api.tmp_id_list();
+				if(res.code == 1) {
+					// this.tmp_id_list = res.list ;
+					this.subApi(res.list)
+					
+				}
+			},
+			subApi(list) {
+				wx.requestSubscribeMessage({
+					tmplIds: list,
+					success: async (res)=>{
+						console.log(res)
+						if(res.tjSTqE0hZ0TxMCIerDlXLqhhHNxJ7MxMcB0741EtcFg == 'reject') return
+						uni.showLoading()
+						const res2 = await this.$api.tmp_id_back({
+							params: {
+								str: JSON.stringify(res)
+							}
+						})
+						if(res2.code == 1) {
+							uni.showToast({
+								title: res2.msg,
+								icon: 'none'
+							})
+						}
+					}
+				})
+			},
 		}
 	}
 </script>

@@ -148,3 +148,9 @@ export const tmp_id_list = (data) => http.get('tmp_id_list', data)
 export const tmp_id_back = (data) => http.get('tmp_id_back', data) 
 // wx.getSetting把始终订阅的数据 json格式 提交到str
 export const get_tmp_id_time = (data) => http.get('get_tmp_id_time', data) 
+
+
+// dingyue_tishi
+export const dingyue_tishi = (data) => http.get('dingyue_tishi', data) 
+// dingyue_save
+export const dingyue_save = (data) => http.get('dingyue_save', data) 
